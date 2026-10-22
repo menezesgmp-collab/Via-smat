@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIA Smart</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6f9;--sf:#fff;--ink:#17202e;--mut:#5d6878;--ln:#d9dee6;--blue:#2c4a8a;--blue2:#e6ecf8;--ok:#1d7a4d;--okbg:#e2f3ea;--warn:#946200;--warnbg:#fbf0d4;--bad:#a8322d;--badbg:#f9e3e1;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141c;--sf:#18202c;--ink:#e8ecf3;--mut:#9aa5b6;--ln:#2a3445;--blue:#8fb0f2;--blue2:#1f2c47;--ok:#6fd6a1;--okbg:#17332a;--warn:#f0c866;--warnbg:#3a3015;--bad:#f09a94;--badbg:#3b1f1e}}
+:root[data-theme="dark"]{--bg:#0f141c;--sf:#18202c;--ink:#e8ecf3;--mut:#9aa5b6;--ln:#2a3445;--blue:#8fb0f2;--blue2:#1f2c47;--ok:#6fd6a1;--okbg:#17332a;--warn:#f0c866;--warnbg:#3a3015;--bad:#f09a94;--badbg:#3b1f1e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+h1{font:600 28px/1.15 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin:0 0 6px;letter-spacing:-.2px}
+h2{font-size:17px;margin:0 0 12px}
+.sub{color:var(--mut);margin:0 0 20px;max-width:60ch}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:16px}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+select,input{width:100%;min-width:0;padding:9px 10px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--ln);border-radius:7px}
+select:focus,input:focus,button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid var(--blue);background:var(--blue);color:#fff;padding:10px 14px;font-weight:500}
+
+button.pri{width:100%;margin-top:18px}
+button.ghost{background:transparent;color:var(--blue)}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.card.top{border-left:4px solid var(--blue)}
+.head{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.name{font-weight:600;font-size:16px}
+.meta{color:var(--mut);font-size:13px}
+.score{text-align:center;min-width:64px}
+.score b{display:block;font:600 28px/1 "IBM Plex Sans Condensed",sans-serif;color:var(--blue)}
+.score span{font-size:12px;color:var(--mut)}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;margin:6px 6px 0 0}
+.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.bad{background:var(--badbg);color:var(--bad)}.neu{background:var(--blue2);color:var(--blue)}
+.why{margin:10px 0 0}
+.det{display:none;margin-top:12px;border-top:1px solid var(--ln);padding-top:12px}
+.card.open .det{display:block}
+.bar{display:grid;grid-template-columns:130px 1fr 36px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.bar i{display:block;height:8px;border-radius:4px;background:var(--blue2);overflow:hidden}
+.bar i u{display:block;height:100%;background:var(--blue)}
+.priv{background:var(--blue2);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:12px}
+.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.empty{color:var(--mut);padding:30px 10px;text-align:center}
+details{margin-top:14px;font-size:13px;color:var(--mut)}
+.top-bar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.trk{margin-top:12px;border:1px solid var(--ln);border-radius:10px;padding:12px;background:var(--bg)}.trk svg{width:100%;height:auto;display:block;max-height:320px}.trk .st{font-weight:600;margin-bottom:8px}.trk .bar2{height:8px;border-radius:4px;background:var(--blue2);overflow:hidden;margin-top:8px}.trk .bar2 u{display:block;height:100%;width:0;background:var(--blue)}
+button:not(.ghost){background:#2c4a8a;border-color:#2c4a8a;color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button:not(.ghost){background:#3a5fb0;border-color:#3a5fb0}}
+:root[data-theme="dark"] button:not(.ghost){background:#3a5fb0;border-color:#3a5fb0}
+button:disabled{opacity:.65;cursor:default}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-bar"><div>
+    <h1>VIA Smart</h1>
+    <p class="sub">Driver Marketplace Network. Descreva a necessidade de transporte e veja os motoristas mais compatíveis, com a justificativa e o nível de confiança de cada combinação.</p>
+  </div></div>
+  <div class="grid">
+    <div class="panel">
+      <h2>Necessidade de transporte</h2>
+      <label for="o">Origem (digite ou escolha)</label><input id="o" list="cl" autocomplete="off"><datalist id="cl"></datalist>
+      <button class="ghost" id="gps" type="button" style="margin-top:6px;padding:6px 10px;font-size:13px">Usar minha localização</button><div class="meta" id="gm"></div>
+      <label for="d">Destino (digite ou escolha)</label><input id="d" list="cl" autocomplete="off">
+      <label for="c">Tipo de carga</label>
+      <select id="c"><option value="seca">Carga seca geral</option><option value="frag">Frágil</option><option value="refr">Refrigerada</option><option value="perig">Produto perigoso</option></select>
+      <label for="w">Peso (kg)</label><input id="w" type="number" min="1" value="2500">
+      <div class="row"><div><label for="dt">Data</label><input id="dt" type="date"></div><div><label for="tm">Horário</label><input id="tm" type="time" value="08:00"></div></div>
+      <button class="pri" id="go">Buscar combinações</button>
+      <button class="pri ghost" id="rg">Cadastrar motorista</button>
+      <div id="reg" style="display:none">
+        <h2 style="margin-top:16px">Novo motorista</h2>
+        <label for="rn">Nome</label><input id="rn">
+        <div class="row"><div><label for="rh">CNH</label><select id="rh"><option>B</option><option selected>C</option><option>D</option><option>E</option></select></div><div><label for="rc">Capacidade (kg)</label><input id="rc" type="number" min="1"></div></div>
+        <label for="rv">Veículo</label><select id="rv"><option>Van de carga</option><option>VUC</option><option>Caminhão toco</option><option>Carreta</option></select>
+        <label><input id="rf" type="checkbox" style="width:auto"> Veículo refrigerado</label>
+        <label><input id="rp" type="checkbox" style="width:auto"> Curso MOPP (produto perigoso)</label>
+        <label for="rcs">Cidades atendidas (separe por vírgula)</label><input id="rcs" placeholder="Volta Redonda, Rio de Janeiro">
+        <div class="row"><div><label for="rcpf">CPF</label><input id="rcpf" placeholder="000.000.000-00"></div><div><label for="rtel">Telefone</label><input id="rtel" placeholder="(24) 90000-0000"></div></div>
+        <button class="pri" id="sv">Salvar motorista</button>
+        <p class="meta" id="rm"></p>
+      </div>
+    </div>
+    <div id="res"><div class="empty">Preencha a demanda e toque em Buscar combinações.</div></div>
+  </div>
+</div>
+<script>
+var CITIES=["Volta Redonda","Barra Mansa","Rio de Janeiro","Niterói","São Paulo","Belo Horizonte"];
+var CARGO={seca:"carga seca",frag:"carga frágil",refr:"carga refrigerada",perig:"produto perigoso"};
+var D=[
+{id:1,n:"Carlos Almeida",cnh:"C",v:"Caminhão toco",cap:6000,refr:false,mopp:false,rt:4.8,ot:96,tr:212,inc:0,ver:true,days:[1,2,3,4,5],h:[6,18],cs:["Volta Redonda","Barra Mansa","Rio de Janeiro"],cpf:"214.567.890-12",tel:"(24) 99812-4471"},
+{id:2,n:"Marcos Ribeiro",cnh:"E",v:"Carreta baú",cap:26000,refr:false,mopp:true,rt:4.6,ot:91,tr:340,inc:1,ver:true,days:[1,2,3,4,5,6],h:[5,20],cs:["Volta Redonda","São Paulo","Rio de Janeiro","Belo Horizonte"],cpf:"198.332.410-55",tel:"(24) 99701-2290"},
+{id:3,n:"Juliana Prado",cnh:"C",v:"VUC refrigerado",cap:3000,refr:true,mopp:false,rt:4.9,ot:98,tr:128,inc:0,ver:true,days:[1,2,3,4,5],h:[5,16],cs:["Rio de Janeiro","Niterói","Volta Redonda"],cpf:"305.118.772-09",tel:"(21) 98833-1076"},
+{id:4,n:"Rafael Nogueira",cnh:"B",v:"Fiorino",cap:650,refr:false,mopp:false,rt:4.5,ot:89,tr:410,inc:2,ver:true,days:[1,2,3,4,5,6,0],h:[7,22],cs:["Volta Redonda","Barra Mansa"],cpf:"122.904.667-31",tel:"(24) 99655-8812"},
+{id:5,n:"Ana Beatriz Lopes",cnh:"C",v:"Caminhão toco baú",cap:5500,refr:false,mopp:true,rt:4.7,ot:94,tr:76,inc:0,ver:true,days:[2,3,4,5],h:[6,17],cs:["Barra Mansa","Volta Redonda","São Paulo"],cpf:"411.776.020-48",tel:"(24) 99544-3307"},
+{id:6,n:"Eduardo Tavares",cnh:"C",v:"VUC baú",cap:3200,refr:false,mopp:false,rt:4.2,ot:82,tr:18,inc:1,ver:false,days:[1,2,3,4,5,6],h:[8,19],cs:["Rio de Janeiro","Niterói"],cpf:"087.553.214-70",tel:"(21) 97712-6540"},
+{id:7,n:"Paulo Henrique Dias",cnh:"E",v:"Carreta refrigerada",cap:24000,refr:true,mopp:false,rt:4.7,ot:95,tr:268,inc:0,ver:true,days:[1,2,3,4,5,6],h:[4,22],cs:["Belo Horizonte","São Paulo","Rio de Janeiro","Volta Redonda"],cpf:"276.440.918-63",tel:"(31) 98890-2145"},
+{id:8,n:"Luciana Ferraz",cnh:"B",v:"Van de carga",cap:1500,refr:false,mopp:false,rt:4.8,ot:97,tr:154,inc:0,ver:true,days:[1,2,3,4,5,6],h:[6,20],cs:["Volta Redonda","Barra Mansa","Rio de Janeiro","Niterói"],cpf:"339.201.586-27",tel:"(24) 99433-7719"}
+];
+var $=function(i){return document.getElementById(i)};
+CITIES.forEach(function(c){var e=document.createElement("option");e.value=c;$("cl").appendChild(e)});$("o").value=CITIES[0];$("d").value=CITIES[2];
+function norm(x){x=x.trim();var m=CITIES.filter(function(c){return c.toLowerCase()==x.toLowerCase()});return m.length?m[0]:x}
+var t=new Date();t.setDate(t.getDate()+1);$("dt").value=t.toISOString().slice(0,10);
+
+var KM={"Volta Redonda|Barra Mansa":10,"Volta Redonda|Rio de Janeiro":130,"Volta Redonda|Niterói":150,"Volta Redonda|São Paulo":300,"Volta Redonda|Belo Horizonte":420,"Barra Mansa|Rio de Janeiro":120,"Barra Mansa|Niterói":140,"Barra Mansa|São Paulo":290,"Barra Mansa|Belo Horizonte":410,"Rio de Janeiro|Niterói":15,"Rio de Janeiro|São Paulo":430,"Rio de Janeiro|Belo Horizonte":440,"Niterói|São Paulo":450,"Niterói|Belo Horizonte":450,"São Paulo|Belo Horizonte":590};
+function dist(a,b){return KM[a+"|"+b]||KM[b+"|"+a]||null}
+function emis(d,km){var kl=d.cap<=1500?9:d.cap<=3500?6:d.cap<=7000?3.5:2.2;return km/kl*2.7*(d.refr?1.15:1)}
+function need(w){return w<=1500?"B":(w<=14000?"C":"E")}
+function rank(g){return {B:1,C:2,D:3,E:4}[g]}
+function evaluate(q){
+  var ok=[],out=[];
+  D.forEach(function(d){
+    var why=[];
+    if(rank(d.cnh)<rank(need(q.w)))why.push("CNH "+d.cnh+" não cobre "+q.w+" kg (exige "+need(q.w)+")");
+    if(d.cap<q.w)why.push("capacidade do veículo ("+d.cap+" kg) menor que a carga");
+    if(q.c=="refr"&&!d.refr)why.push("veículo sem refrigeração");
+    if(q.c=="perig"&&!d.mopp)why.push("sem curso MOPP para produto perigoso");
+    if(why.length){out.push({d:d,why:why});return}
+    var use=q.w/d.cap, fit=use>=.5?1:.5+use;
+    var known=(d.cs.indexOf(q.o)>-1?1:0)+(d.cs.indexOf(q.d)>-1?1:0), rt=known==2?1:known==1?.6:.2;
+    var rep=.5*((d.rt-3)/2)+.5*Math.max(0,(d.ot-70)/30);
+    var dt=new Date(q.dt+"T12:00:00"), hr=parseInt(q.tm), av=d.days.indexOf(dt.getDay())>-1&&hr>=d.h[0]&&hr<d.h[1];
+    var tr=(d.ver?.6:0)+(d.inc==0?.4:d.inc==1?.2:0);
+    var s=Math.round(100*(.30*fit+.20*rt+.25*rep+.15*(av?1:0)+.10*tr));
+    var conf=d.tr>=100?"alta":d.tr>=30?"média":"baixa";
+    ok.push({d:d,s:s,conf:conf,av:av,use:use,known:known,
+      parts:[["Adequação do veículo",fit],["Conhecimento da rota",rt],["Reputação",rep],["Disponibilidade",av?1:0],["Confiança e documentos",tr]]});
+  });
+  ok.sort(function(a,b){return b.s-a.s});
+  var km=dist(q.o,q.d),est=!km;km=km||150;var mx=0;
+  ok.forEach(function(r){r.em=emis(r.d,km);mx=Math.max(mx,r.em)});
+  var mn=ok.length?Math.min.apply(null,ok.map(function(r){return r.em})):0;
+  ok.forEach(function(r){r.km=km;r.est=est;r.cut=mx>0?Math.round((1-r.em/mx)*100):0;r.low=ok.length>1&&r.em==mn});
+  return {ok:ok,out:out};
+}
+function mask(c){return "***."+c.slice(4,7)+".***-**"}
+function phone(p,rev){return rev?p.replace(/(\d{5})-(\d{2})(\d{2})/,"$1-**$3"):"•••• liberado após a confirmação"}
+function why(r,q){
+  var d=r.d,p=[];
+  p.push("Habilitação "+d.cnh+" e "+d.v.toLowerCase()+" atendem "+CARGO[q.c]+" de "+q.w+" kg (uso de "+Math.round(r.use*100)+"% da capacidade).");
+  p.push(r.known==2?"Já opera os dois extremos da rota.":r.known==1?"Conhece um dos extremos da rota.":"Sem histórico nesta rota.");
+  p.push(d.ot+"% das entregas no prazo em "+d.tr+" viagens, nota "+d.rt.toFixed(1)+".");
+  p.push(r.av?"Disponível na data e horário pedidos.":"Fora da janela de disponibilidade informada.");
+  p.push("Emissão estimada: "+Math.round(r.em)+" kg de CO₂ em "+r.km+" km"+(r.est?" (distância estimada)":"")+(r.cut>0?", "+r.cut+"% a menos que a opção de maior porte.":"."));
+  return p.join(" ");
+}
+function render(q){
+  var R=evaluate(q),h="";
+  if(q.o==q.d){$("res").innerHTML='<div class="empty">Origem e destino precisam ser diferentes.</div>';return}
+  if(!R.ok.length)h+='<div class="empty">Nenhum motorista atende a todos os requisitos. Veja abaixo o motivo de cada descarte.</div>';
+  else h+='<h2>'+R.ok.length+' combinações para '+q.o+' → '+q.d+'</h2>';
+  R.ok.forEach(function(r,i){
+    var d=r.d;
+    h+='<div class="card'+(i==0?' top open':'')+'" data-id="'+d.id+'"><div class="head"><div><div class="name">'+d.n+'</div><div class="meta">'+d.v+' · CNH '+d.cnh+' · placa ***-'+(1000+(d.id*137)%9000)+'</div></div><div class="score"><b>'+r.s+'</b><span>compatibilidade</span></div></div>'
+    +'<span class="tag '+(r.conf=="alta"?"ok":r.conf=="média"?"warn":"bad")+'">Confiança '+r.conf+'</span>'
+    +'<span class="tag '+(r.av?"ok":"bad")+'">'+(r.av?"Disponível":"Fora do horário")+'</span>'
+    +(d.ver?'<span class="tag neu">Documentos verificados</span>':'<span class="tag warn">Verificação pendente</span>')
+    +(i==0?'<span class="tag neu">Melhor combinação</span>':'')+(r.low?'<span class="tag ok">Menor emissão</span>':'')
+    +'<p class="why">'+why(r,q)+'</p><button class="ghost tg">Ver detalhes</button>'
+    +'<div class="det">'+r.parts.map(function(p){return '<div class="bar"><span>'+p[0]+'</span><i><u style="width:'+Math.round(p[1]*100)+'%"></u></i><span>'+Math.round(p[1]*100)+'</span></div>'}).join("")
+    +'<div class="priv"><b>Privacidade:</b> CPF '+mask(d.cpf)+'<br><span class="ph">Telefone: '+phone(d.tel,false)+'</span></div>'
+    +'<div class="acts"><button class="rq">Solicitar este motorista</button></div></div></div>';
+  });
+  if(R.out.length)h+='<details><summary>'+R.out.length+' motoristas descartados por requisito</summary>'+R.out.map(function(o){return '<p><b>'+o.d.n+'</b>: '+o.why.join("; ")+'.</p>'}).join("")+'</details>';
+  h+='<p class="meta" style="margin-top:14px">Pontuação: 30% veículo, 25% reputação, 20% rota, 15% disponibilidade, 10% confiança. Dados fictícios para demonstração.</p>';
+  if(R.ok.length)h+='<p class="meta">Emissões: estimativa com diesel a cerca de 2,7 kg de CO₂ por litro e consumo por porte de veículo. Aproveitar um retorno com carga evita cerca de '+Math.round(R.ok[0].em)+' kg de CO₂ na volta.</p>';
+  $("res").innerHTML=h;
+  $("res").onclick=function(e){
+    var c=e.target.closest(".card");if(!c)return;
+    if(e.target.classList.contains("tg")){c.classList.toggle("open");e.target.textContent=c.classList.contains("open")?"Ocultar detalhes":"Ver detalhes"}
+    if(e.target.classList.contains("rq")){
+      var d=D.filter(function(x){return x.id==c.dataset.id})[0];
+      c.querySelector(".ph").textContent="Telefone: "+phone(d.tel,true)+" (liberado com seu consentimento e registrado)";
+      e.target.textContent="Solicitação enviada";e.target.disabled=true;startTrack(c,d,q);
+    }
+  };
+}
+var CC={"Volta Redonda":[-22.52,-44.10],"Barra Mansa":[-22.54,-44.17],"Rio de Janeiro":[-22.91,-43.17],"Niterói":[-22.88,-43.10],"São Paulo":[-23.55,-46.63],"Belo Horizonte":[-19.92,-43.94]};
+var LB={"Barra Mansa":[-7,-7,"end"],"Niterói":[7,-7,"start"]};
+var UP=null;
+function hav(a,b){var R=6371,r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r;var x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(x))}
+function pj(ll){return [(ll[1]+46.9)*100,(-19.7-ll[0])*100]}
+function hm(m){m=Math.max(0,Math.round(m));return m>=60?Math.floor(m/60)+" h "+(m%60)+" min":m+" min"}
+$("gps").onclick=function(){
+  var m=$("gm");
+  if(!navigator.geolocation){m.textContent="Este navegador não oferece GPS. Escolha a cidade manualmente.";return}
+  m.textContent="Buscando sua localização...";
+  navigator.geolocation.getCurrentPosition(function(pos){
+    UP=[pos.coords.latitude,pos.coords.longitude];
+    var best=null,bd=1e9;Object.keys(CC).forEach(function(k){var x=hav(UP,CC[k]);if(x<bd){bd=x;best=k}});
+    $("o").value=best;
+    m.textContent="Localização detectada. Cidade mais próxima: "+best+" (a "+Math.round(bd)+" km).";
+  },function(){m.textContent="Não foi possível acessar o GPS (permissão negada ou indisponível). Escolha a cidade manualmente."},{timeout:8000,maximumAge:60000});
+};
+function startTrack(c,d,q){
+  var det=c.querySelector(".det"),old=c.querySelector(".trk");if(old)old.remove();
+  var box=document.createElement("div");box.className="trk";det.appendChild(box);
+  var O=CC[q.o],De=CC[q.d],base=d.cs.filter(function(x){return CC[x]&&x!=q.o})[0];
+  var a=base?(dist(base,q.o)||30):12,r=dist(q.o,q.d)||150,T=a+r;
+  var P0=base?CC[base]:(O?[O[0]-0.08,O[1]-0.08]:null);
+  function lerp(A,B,t){return [A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t]}
+  var map=O&&De&&P0,svg="";
+  if(map){
+    var p0=pj(P0),po=pj(O),pd=pj(De);
+    var xs=[p0[0],po[0],pd[0]],ys=[p0[1],po[1],pd[1]],mnx=Math.min.apply(null,xs),mxx=Math.max.apply(null,xs),mny=Math.min.apply(null,ys),mxy=Math.max.apply(null,ys);
+    var sz=Math.max(240,Math.max(mxx-mnx,mxy-mny)+120),vx=(mnx+mxx)/2-sz/2,vy=(mny+mxy)/2-sz/2;
+    svg='<svg viewBox="'+vx+' '+vy+' '+sz+' '+sz+'" role="img" aria-label="Mapa esquemático com a posição do motorista"><rect x="'+vx+'" y="'+vy+'" width="'+sz+'" height="'+sz+'" rx="10" style="fill:var(--blue2)"/>'
+    +'<line x1="'+p0[0]+'" y1="'+p0[1]+'" x2="'+po[0]+'" y2="'+po[1]+'" style="stroke:var(--mut)" stroke-width="2" stroke-dasharray="5 5"/>'
+    +'<line x1="'+po[0]+'" y1="'+po[1]+'" x2="'+pd[0]+'" y2="'+pd[1]+'" style="stroke:var(--blue)" stroke-width="3"/>'
+    +Object.keys(CC).map(function(k){var p=pj(CC[k]),l=LB[k]||[7,4,"start"];return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" style="fill:var(--mut)"/><text x="'+(p[0]+l[0])+'" y="'+(p[1]+l[1])+'" text-anchor="'+l[2]+'" font-size="12" style="fill:var(--ink)">'+k+'</text>'}).join("")
+    +'<circle cx="'+po[0]+'" cy="'+po[1]+'" r="8" fill="none" style="stroke:var(--ok)" stroke-width="3"/><circle cx="'+pd[0]+'" cy="'+pd[1]+'" r="8" fill="none" style="stroke:var(--bad)" stroke-width="3"/>';
+    if(UP){var pu=pj(UP);pu=[Math.min(vx+sz-10,Math.max(vx+10,pu[0])),Math.min(vy+sz-10,Math.max(vy+10,pu[1]))];svg+='<circle cx="'+pu[0]+'" cy="'+pu[1]+'" r="5" style="fill:var(--ok)"/><text x="'+(pu[0]+8)+'" y="'+(pu[1]-6)+'" font-size="12" style="fill:var(--ok)">Você</text>'}
+    svg+='<circle class="mk" cx="'+p0[0]+'" cy="'+p0[1]+'" r="9" style="fill:var(--blue)" stroke="#fff" stroke-width="3"/></svg>';
+  }
+  box.innerHTML='<div class="st"></div>'+svg+'<div class="bar2"><u></u></div><p class="meta" style="margin:8px 0 0">Simulação de rastreamento: a posição do motorista é simulada. Em produção viria do GPS do app do motorista.</p>';
+  var st=box.querySelector(".st"),bar=box.querySelector(".bar2 u"),mk=box.querySelector(".mk"),t0=Date.now(),DUR=24000;
+  var iv=setInterval(function(){
+    if(!document.body.contains(box)){clearInterval(iv);return}
+    var t=Math.min(1,(Date.now()-t0)/DUR),s=t*T;
+    if(t>=1){st.textContent="Entrega concluída (simulação).";clearInterval(iv)}
+    else if(s<a)st.textContent="Motorista a caminho da coleta em "+q.o+". Chega em "+hm(a-s)+".";
+    else st.textContent="Em rota para "+q.d+". Chegada em "+hm(T-s)+" ("+Math.round(T-s)+" km restantes).";
+    bar.style.width=(t*100)+"%";
+    if(map){var pp=pj(s<a?lerp(P0,O,s/a):lerp(O,De,(s-a)/r));mk.setAttribute("cx",pp[0]);mk.setAttribute("cy",pp[1])}
+  },100);
+}
+$("go").onclick=function(){render({o:norm($("o").value),d:norm($("d").value),c:$("c").value,w:parseInt($("w").value)||1,dt:$("dt").value,tm:$("tm").value})};
+var KEY="dmn_drivers";
+try{JSON.parse(localStorage.getItem(KEY)||"[]").forEach(function(x){D.push(x)})}catch(e){}
+$("rg").onclick=function(){var r=$("reg");r.style.display=r.style.display=="none"?"block":"none"};
+$("sv").onclick=function(){
+  var n=$("rn").value.trim(),cap=parseInt($("rc").value);
+  if(!n||!cap){$("rm").textContent="Informe o nome e a capacidade do veículo.";return}
+  var cs=$("rcs").value.split(",").map(norm).filter(Boolean);
+  var cp=$("rcpf").value.replace(/\D/g,""),tl=$("rtel").value.replace(/\D/g,"");
+  cp=cp.length==11?cp.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4"):"000.000.000-00";
+  tl=tl.length==11?tl.replace(/(\d{2})(\d{5})(\d{4})/,"($1) $2-$3"):"(00) 90000-0000";
+  var d={id:Date.now(),n:n,cnh:$("rh").value,v:$("rv").value+($("rf").checked?" refrigerado":""),cap:cap,refr:$("rf").checked,mopp:$("rp").checked,rt:4,ot:80,tr:0,inc:0,ver:false,days:[1,2,3,4,5,6],h:[6,20],cs:cs,cpf:cp,tel:tl};
+  D.push(d);
+  try{var a=JSON.parse(localStorage.getItem(KEY)||"[]");a.push(d);localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}
+  $("rm").textContent=n+" cadastrado. Já aparece nas buscas, com confiança baixa até ter histórico.";
+  ["rn","rc","rcs","rcpf","rtel"].forEach(function(i){$(i).value=""});
+};
+$("go").click();
+</script>
+</body>
+</html>
